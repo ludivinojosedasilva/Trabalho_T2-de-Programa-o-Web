@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulador de placa de petri</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <h1>Simulador de placa de petri</h1>
+
+    <!-- RF07, RF08: informacoes reativas -->
+    <div class="info">
+      <span>Geração: <strong id="geracao">{{ generation }}</strong></span>
+      <span>Células vivas: <strong id="vivas">{{ aliveCount }}</strong></span>
+      <span>Estado: <strong id="estado">{{ statusText }}</strong></span>
+    </div>
+
+    <!-- RF03, RF04, RF05, RF06 e edicao -->
+    <div class="controles">
+      <button id="btn-iniciar" @click="start" :disabled="phase !== 'parado'">Iniciar</button>
+      <button id="btn-pausar" @click="pause()" :disabled="phase !== 'executando'">Pausar</button>
+      <button id="btn-continuar" @click="resume" :disabled="phase !== 'pausado'">Continuar</button>
+      <button id="btn-passo" @click="step" :disabled="running">Passo a passo</button>
+      <button id="btn-editar" @click="edit" :disabled="phase === 'parado'">Editar geração</button>
+      <button id="btn-reiniciar" class="perigo" @click="reset">Reiniciar</button>
+    </div>
+
+    <div class="controles">
+      <label>Tamanho da grade (N x N):
+        <input id="tamanho" type="number" :min="MIN_SIZE" :max="MAX_SIZE" v-model="sizeInput" @change="applySize">
+      </label>
+      <label>Intervalo: {{ speed }} ms
+        <input id="velocidade" type="range" min="50" max="1000" step="50" v-model.number="speed">
+      </label>
+    </div>
+
+    <div class="mensagem" id="mensagem">{{ message }}</div>
+
+    <!-- RF01, RF02: grade; cada celula e um elemento controlado pelo Vue -->
+    <div class="grade" :class="{ editavel: editable }" :style="gridStyle">
+      <template v-for="(linha, r) in grid" :key="r">
+        <div v-for="(celula, c) in linha" :key="c"
+             class="celula" :class="{ viva: celula === 1 }"
+             @click="toggleCell(r, c)"></div>
+      </template>
+    </div>
+  </div>
+
+  <script src="vendor/vue.global.prod.js"></script>
+  <script src="life.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
