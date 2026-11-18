@@ -1,4 +1,3 @@
-// Servidor Node.js + Express: apenas serve a aplicacao frontend (pasta public/).
 const path = require('path');
 const express = require('express');
 

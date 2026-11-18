@@ -1,4 +1,3 @@
-// Testes da logica (sem navegador): node test/life.test.js
 const assert = require('assert');
 const Life = require('../public/life.js');
 
@@ -45,7 +44,7 @@ ok('nascimento com exatamente 3 (e nao com 2 ou 4)', () => {
 ok('bordas: canto so enxerga 3 vizinhas e nao ha conexao entre bordas opostas', () => {
   const g = from(['##.', '##.', '...']);
   assert.strictEqual(Life.countNeighbors(g, 0, 0), 3);
-  const t = from(['#.#', '...', '...']); // com toroide (0,0) e (0,2) seriam vizinhas
+  const t = from(['#.#', '...', '...']);
   assert.strictEqual(Life.countNeighbors(t, 0, 0), 0);
 });
 

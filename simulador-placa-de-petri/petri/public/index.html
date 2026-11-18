@@ -10,14 +10,12 @@
   <div id="app">
     <h1>Simulador de placa de petri</h1>
 
-    <!-- RF07, RF08: informacoes reativas -->
     <div class="info">
       <span>Geração: <strong id="geracao">{{ generation }}</strong></span>
       <span>Células vivas: <strong id="vivas">{{ aliveCount }}</strong></span>
       <span>Estado: <strong id="estado">{{ statusText }}</strong></span>
     </div>
 
-    <!-- RF03, RF04, RF05, RF06 e edicao -->
     <div class="controles">
       <button id="btn-iniciar" @click="start" :disabled="phase !== 'parado'">Iniciar</button>
       <button id="btn-pausar" @click="pause()" :disabled="phase !== 'executando'">Pausar</button>
@@ -38,7 +36,6 @@
 
     <div class="mensagem" id="mensagem">{{ message }}</div>
 
-    <!-- RF01, RF02: grade; cada celula e um elemento controlado pelo Vue -->
     <div class="grade" :class="{ editavel: editable }" :style="gridStyle">
       <template v-for="(linha, r) in grid" :key="r">
         <div v-for="(celula, c) in linha" :key="c"
